@@ -2,16 +2,25 @@ const ATTACK_VALUE = 10;
 const MONSTER_ATTACK_VALUE = 14;
 const STRONG_ATTACK_VALUE = 17;
 const HEAL_VALUE = 20;
-let chosenMaxLife = 100;
 
+let bonusLife = true;
+let chosenMaxLife = 100;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 
 adjustHealthBars(chosenMaxLife);
 
 function endRound() {
+  const initialPlayerHealth = currentPlayerHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
   currentPlayerHealth -= playerDamage;
+  if (currentPlayerHealth <= 0 && bonusLife){
+    bonusLife = false;
+    removeBonusLife();
+    currentPlayerHealth = initialPlayerHealth;
+    setPlayerHealth(initialPlayerHealth);
+    alert("You'd be dead but your bonus life saved you!");
+  }
   if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
     alert('YOU DRAW !');
   } else if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
@@ -38,7 +47,7 @@ function attackMonster(mode) {
   } else if ((mode = 'STRONG_ATTACK')) {
     maxDamage = STRONG_ATTACK_VALUE;
   }
-  const damage = dealMonsterDamage(maxDamage);
+  const damage = dealMonsterDamage(maxDamage); 
   currentMonsterHealth -= damage;
   endRound();
 }
