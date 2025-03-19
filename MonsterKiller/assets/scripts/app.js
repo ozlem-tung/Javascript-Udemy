@@ -10,11 +10,17 @@ let currentPlayerHealth = chosenMaxLife;
 
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+  currentMonsterHealth = chosenMaxLife;
+  currentPlayerHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
+}
+
 function endRound() {
   const initialPlayerHealth = currentPlayerHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
   currentPlayerHealth -= playerDamage;
-  if (currentPlayerHealth <= 0 && bonusLife){
+  if (currentPlayerHealth <= 0 && bonusLife) {
     bonusLife = false;
     removeBonusLife();
     currentPlayerHealth = initialPlayerHealth;
@@ -28,14 +34,16 @@ function endRound() {
   } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
     alert('YOU LOST !');
   }
+  if (currentMonsterHealth <= 0 || currentPlayerHealth <= 0) {
+    reset();
+  }
 }
 function healPlayerHandler() {
   let healValue;
   if (currentPlayerHealth >= chosenMaxLife - HEAL_VALUE) {
     healValue = chosenMaxLife - currentPlayerHealth;
     alert("You can't heal to more than your max initial health");
-  } else 
-    healValue = HEAL_VALUE;
+  } else healValue = HEAL_VALUE;
   increasePlayerHealth(healValue);
   currentPlayerHealth += healValue;
   endRound();
@@ -47,7 +55,7 @@ function attackMonster(mode) {
   } else if ((mode = 'STRONG_ATTACK')) {
     maxDamage = STRONG_ATTACK_VALUE;
   }
-  const damage = dealMonsterDamage(maxDamage); 
+  const damage = dealMonsterDamage(maxDamage);
   currentMonsterHealth -= damage;
   endRound();
 }
