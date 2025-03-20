@@ -48,11 +48,11 @@ function writeLog(event, value, monsterHealth, playerHealth) {
       break;
     case LOG_EVENT_GAME_OVER:
       logEntry = {
-            event: event,
-            value: value,
-            finalMonsterHealth: monsterHealth,
-            finalPlayerHealth: playerHealth,
-          };
+        event: event,
+        value: value,
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
       break;
     default:
       logEntry = {};
@@ -73,7 +73,6 @@ function writeLog(event, value, monsterHealth, playerHealth) {
   //     finalPlayerHealth: playerHealth,
   //   };
   // }
-
   battleLog.push(logEntry);
 }
 
@@ -169,7 +168,19 @@ function strongAttackHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  //  for(let i=0; i < 0; i++){
+  //   i--;
+  //   console.log(i);
+  //  }
+
+  let i = 0;
+  for (const logEntry of battleLog) {
+    console.log(`#${i}`);
+    for (const key in logEntry) {
+      console.log(`${key} => ${logEntry[key]}`);
+    }
+    i++;
+  }
 }
 
 attackBtn.addEventListener('click', attackHandler);
