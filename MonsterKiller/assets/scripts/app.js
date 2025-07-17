@@ -32,7 +32,6 @@ function writeLog(event, value, monsterHealth, playerHealth) {
     finalMonsterHealth: monsterHealth,
     finalPlayerHealth: playerHealth,
   };
-
   switch (event) {
     case LOG_EVENT_PLAYER_ATTACK:
       logEntry.target = 'Monster';
@@ -75,7 +74,6 @@ function writeLog(event, value, monsterHealth, playerHealth) {
   // }
   battleLog.push(logEntry);
 }
-
 function reset() {
   currentMonsterHealth = chosenMaxLife;
   currentPlayerHealth = chosenMaxLife;

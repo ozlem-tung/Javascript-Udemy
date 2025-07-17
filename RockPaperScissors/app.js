@@ -84,3 +84,35 @@ startGameBtn.addEventListener('click', function () {
   alert(message);
   gameIsRunning = false;
 });
+
+
+
+//Rest Parameters
+
+const sumUp = (resultHandler, ...numbers) => {
+  const validateNumber = (number) => {
+    return isNaN(number) ? 0 : number;
+  };
+
+  let sum = 0;
+  for (const num of numbers) {
+    sum += validateNumber(num);
+  }
+  resultHandler(sum);
+};
+
+
+const subtractUp = function (resultHandler) {
+  let sum = 0;
+  for (const num of arguments) //don't use that
+    sum -= num;
+ resultHandler(sum);
+};
+
+const showResult = (result) => {
+  alert('The result after adding all numbers is:' + result);
+};
+
+sumUp(showResult, 1, 5, 'nkcnm', -3, 5, 13);
+sumUp(showResult, 1, 5, 15, -3, 5, 13);
+console.log(showResult, 1, 10, 15, 20);
